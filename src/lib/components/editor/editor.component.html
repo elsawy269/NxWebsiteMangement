@@ -1,0 +1,6 @@
+<a [routerLink]="['/dashboard']" class="logo">
+  <img class="logo-icon" src="assets/images/logos/fuse.svg">
+  <p class="logo-text secondary-text">SELLTIME</p>
+</a>
+
+<div id="gjs" selltimeGrapesEditor [assets]="assets$ | async"  [content]="content"  (saveContent)="onSaveContent()"  (assetAdded)="onAssetAdded($event)"></div>

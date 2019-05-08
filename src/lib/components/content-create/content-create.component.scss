@@ -1,0 +1,256 @@
+@import "../../../../../../shared/fuse/src/lib/scss/fuse.scss";
+
+:host {
+  min-height: 100%;
+
+  #boards {
+    width: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .header {
+
+      h1 {
+        font-size: 40px;
+        font-weight: 300;
+      }
+
+      .ct-card {
+        cursor: pointer;
+
+        &:hover {
+          background-color: #c5c6cb;
+        }
+      }
+
+      .selected {
+        background-color: #c5c6cb;
+      }
+    }
+
+    .board-list {
+      padding: 32px 0;
+      max-height: none !important;
+
+
+      .tilter {
+        display: block;
+        position: relative;
+        -webkit-box-flex: 0;
+        -webkit-flex: none;
+        -ms-flex: none;
+        flex: none;
+        -webkit-perspective: 1000px;
+        perspective: 1000px;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+      }
+
+      .tilter * {
+        pointer-events: none;
+      }
+
+      .tilter:hover,
+      .tilter:focus {
+        color: #fff;
+        outline: none;
+      }
+
+      /*
+            .tilter__figure,
+            .tilter__deco,
+            .tilter__caption {
+              will-change: transform;
+            }*/
+      .tilter__figure,
+      .tilter__image {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .tilter__figure>* {
+        -webkit-transform: translateZ(0px);
+        transform: translateZ(0px);
+        /* Force correct stacking order */
+      }
+
+      .smooth .tilter__figure,
+      .smooth .tilter__deco--overlay,
+      .smooth .tilter__deco--lines,
+      .smooth .tilter__deco--shine div,
+      .smooth .tilter__caption {
+        -webkit-transition: -webkit-transform 0.2s ease-out;
+        transition: -webkit-transform 0.2s ease-out;
+        -o-transition: transform 0.2s ease-out;
+        transition: transform 0.2s ease-out;
+        transition: transform 0.2s ease-out, -webkit-transform 0.2s ease-out;
+      }
+
+      .tilter__figure {
+        position: relative;
+      }
+
+      .tilter__figure img {
+        width: 100%;
+        height: auto;
+      }
+
+      .tilter__figure::before {
+        content: '';
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        top: 5%;
+        left: 5%;
+        -webkit-box-shadow: 0 30px 20px rgba(35, 32, 39, 0.5);
+        box-shadow: 0 30px 20px rgba(35, 32, 39, 0.5);
+      }
+
+      .tilter__deco {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .tilter__deco--overlay {
+        background-image: -webkit-linear-gradient(45deg, rgba(245, 75, 15, 0.4), rgba(229, 10, 10, 0.4), rgba(243, 164, 61, 0.4));
+        background-image: -o-linear-gradient(45deg, rgba(245, 75, 15, 0.4), rgba(229, 10, 10, 0.4), rgba(243, 164, 61, 0.4));
+        background-image: linear-gradient(45deg, rgba(245, 75, 15, 0.4), rgba(229, 10, 10, 0.4), rgba(243, 164, 61, 0.4));
+        mix-blend-mode: hue;
+      }
+
+      .tilter__deco--shine div {
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        top: -50%;
+        left: -50%;
+        background-image: -webkit-linear-gradient(45deg, rgba(0, 0, 0, 0.78) 0%, rgba(58, 58, 58, 0.63) 30%, transparent 100%);
+        background-image: -o-linear-gradient(45deg, rgba(0, 0, 0, 0.78) 0%, rgba(58, 58, 58, 0.63) 30%, transparent 100%);
+        background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.78) 0%, rgba(58, 58, 58, 0.63) 30%, transparent 100%);
+      }
+
+      .tilter__deco--lines:before {
+        content: '';
+        position: absolute;
+        top: 24px;
+        bottom: 24px;
+        left: 24px;
+        right: 24px;
+      }
+
+      @media (min-width: 480px) {
+        .tilter__deco--lines:before {
+          border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+      }
+
+      .tilter__caption {
+        position: absolute;
+        width: 100%;
+        color: #fff;
+        bottom: 0;
+        padding: 14% 6%;
+      }
+
+      @media (min-width: 480px) {
+        .tilter__caption {
+          padding: 15%;
+        }
+      }
+
+      .tilter__title {
+        margin: 0;
+        font-weight: normal;
+        text-transform: uppercase;
+        line-height: 1.2;
+        background: white;
+        color: #212121;
+        padding: 10px 15px;
+        font-size: 18px;
+      }
+
+      @media (min-width: 1800px) {
+        .tilter__title {
+          font-size: 20px;
+        }
+      }
+
+      .tilter__description {
+        margin: 1em 0 0 0;
+        font-size: 0.85em;
+        letter-spacing: 0.1em;
+        background: #212121;
+        color: #fff;
+        padding: 7px 25px;
+        display: none;
+      }
+
+      @media (min-width: 480px) {
+        .tilter__description {
+          display: inline-block;
+        }
+      }
+
+      /* Individual styles */
+      /* Example 1 (Default) */
+      .tilter--1 .tilter__figure::before {
+        -webkit-box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Example 2 (thicker lines, overlay) */
+      .tilter--2,
+      .tilter--2:hover,
+      .tilter--2:focus {
+        color: #2e27ad;
+      }
+
+      .tilter--2 .tilter__deco--overlay {
+        background-image: -webkit-linear-gradient(45deg, rgba(245, 239, 40, 0.6), rgba(164, 22, 169, 0.6));
+        background-image: -o-linear-gradient(45deg, rgba(245, 239, 40, 0.6), rgba(164, 22, 169, 0.6));
+        background-image: linear-gradient(45deg, rgba(245, 239, 40, 0.6), rgba(164, 22, 169, 0.6));
+      }
+
+      .tilter--2 .tilter__deco--lines {
+        stroke: #2e27ad;
+        stroke-width: 4px;
+      }
+
+
+      .board-list-item {
+        min-width: 210px;
+        min-height: 210px;
+        width: 210px;
+        height: 210px;
+        padding: 24px 0;
+        margin: 16px;
+        border-radius: 4px;
+        background: rgba(0, 0, 0, 0.12);
+        transition: box-shadow 150ms ease-in;
+        cursor: pointer;
+
+        &:hover {
+          @include mat-elevation(8);
+        }
+
+        .board-name {
+          padding: 16px 32px 0 32px;
+          font-weight: 300;
+          font-size: 16px;
+          text-align: center;
+        }
+
+        &.add-new-board {
+          background: rgba(0, 0, 0, 0.06);
+          border: 2px dashed rgba(255, 255, 255, 0.37);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+<!-- BOARDS -->
+<div id="boards" fxLayout="column" fxLayoutAlign="start center" fxFlex fusePerfectScrollbar>
+
+  <div class="header pt-32 pt-md-44 w-100-p" fxLayout="column" fxLayoutAlign="center center" fxFlex="0 0 auto" [@animate]="{value:'*',params:{delay:'100ms'}}">
+    <h1>Create </h1>
+    <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="10px" fxFlex="100%" >
+      <mat-card fxFlex="25%" *ngFor="let type of contentTypes$ | async " class="text-center ct-card m-4" (click)="chooseTemplate(type)"
+      [ngClass]="{'selected': selectedConTypeId == type.value}">
+      <mat-icon class="mat-18" color="accent" *ngIf="selectedConTypeId == type.value">check</mat-icon>
+        <h2>{{type.text}}</h2>
+      </mat-card>
+    </div>
+
+  </div>
+
+  <!-- BOARD LIST -->
+  <div class="board-list" fxFlex="0 0 auto" fxLayout="row wrap" fxLayoutAlign="center center" [@animateStagger]="{value:'50'}">
+    <p fxFlex="100%" class="text-center" *ngIf="selectedConTypeId">Please choose a template or <a mat-link-button style="cursor:pointer" (click)="newContent(0)"> create one from scratch </a> </p>
+    <a fuseTilterEffect class="tilter tilter--1 p-20" *ngFor="let template of templates" fxFlex="33%" (click)="newContent(template.id)">
+      <figure class="tilter__figure">
+        <img width="570" height="428" [src]="template.img" alt="">
+        <div class="tilter__deco tilter__deco--shine">
+          <div></div>
+        </div>
+        <figcaption class="tilter__caption text-center">
+          <h3 class="tilter__title text-center">{{template.theme}}</h3>
+        </figcaption>
+        <div class="tilter__deco tilter__deco--lines"></div>
+      </figure>
+    </a>
+
+  </div>
+  <!-- / BOARD LIST -->
+</div>
+<!-- / BOARDS -->

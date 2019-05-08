@@ -1,0 +1,70 @@
+@import '../../../../../../../node_modules/grapesjs-preset-newsletter/dist/grapesjs-preset-newsletter.css';
+
+:host {
+
+  .logo {
+    position: fixed;
+    z-index: 1000;
+    left: 45%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-items: center;
+
+    &:hover {
+      text-decoration: unset !important;
+    }
+
+    .logo-icon {
+      padding-top: 3px;
+      flex: 0 1 32px;
+      height: 41px;
+    }
+
+    .logo-text {
+      flex: 0 1 auto;
+      margin-top: 10px;
+      margin-bottom: 0;
+      color: white;
+      vertical-align: middle;
+    }
+  }
+
+  ::ng-deep .gjs-editor {
+    font-family: inherit;
+    font-size: 1.4rem !important;
+  }
+
+  ::ng-deep .gjs-block-label {
+    line-height: normal;
+    font-size: 0.9rem;
+  }
+
+  ::ng-deep .gjs-layer,
+  ::ng-deep .gjs-clm-tags,
+  ::ng-deep .gjs-sm-properties,
+  ::ng-deep .gjs-toolbar-item {
+    font-size: 1.2rem;
+    width: 100%;
+  }
+
+  ::ng-deep .gjs-layer-move {
+    padding: 8px 1px 3px 1px;
+  }
+
+  ::ng-deep .gjs-devices-c {
+    padding: 0;
+  }
+
+  ::ng-deep .gjs-layer-caret {
+    font-size: 0.9rem;
+    width: 8px;
+    padding: 1px;
+    left: -11px;
+  }
+
+  ::ng-deep .gjs-trt-traits {
+    font-size: 1.2rem;
+  }
+
+}

@@ -1,0 +1,58 @@
+<div class="websites" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
+
+  <div class="website" *ngFor="let website of websites" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="33" [@animate]="{value:'*',params:{y:'100%'}}">
+
+    <div class="website-content" fxLayout="column" fxFlex="1 1 auto">
+
+
+      <div class="content" fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto" (click)="onSelectWebsite(website)">
+        <div class="h1">{{ website.name }}</div>
+        <div class="updated pb-8 pt-4 accent-600-fg"> {{ website.domainKey }}</div>
+
+        <div class="length" fxLayout="row" fxLayoutAlign="center center">
+          <!-- <mat-icon class="length-icon s-20">access_time</mat-icon> -->
+          <div class="min">{{ website.publishDate | date : 'dd/MM/yyyy'}}</div>
+        </div>
+
+        <!-- <button mat-stroked-button color="accent"  (click)="onSelectWebsite(website)" >
+
+        </button> -->
+
+        <div [matBadge]="website.pageCount" class="mt-12" matBadgePosition="above after" matBadgeOverlap="false" matBadgeColor="accent">
+          Pages
+        </div>
+
+      </div>
+
+      <div class="footer" fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-stroked-button color="primary" (click)="onEditWebsite(website)">
+          Edit Website
+        </button>
+
+        <button mat-stroked-button color="warn" (click)="onAddPage(website)">
+          Add Page
+        </button>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- NEW BOARD BUTTON -->
+  <div *ngIf="loadMoreShow" class="load-more" fxLayout="column" fxLayoutAlign="center center" (click)="onLoadMore()">
+    <mat-icon class="s-64" [@rotatedState]='state' *ngIf="!loading">autorenew</mat-icon>
+    <ngx-spinner class="s-64" [visible]="loading" [config]="config"></ngx-spinner>
+    <div class="board-name" *ngIf="!loading">Load More</div>
+  </div>
+
+  <!-- / NEW BOARD BUTTON -->
+
+  <div class="no-websites" *ngIf="websites.length === 0 && !loading">
+    No Websites found!
+  </div>
+
+
+
+</div>

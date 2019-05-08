@@ -1,0 +1,148 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class=" m-0 accent">
+    <mat-toolbar-row fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">{{dialogTitle}}</span>
+      <button mat-button class="mat-icon-button" (click)="dialogRef.close()" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+    <form [formGroup]="websiteForm">
+      <input formControlName="id" hidden>
+
+      <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="10px">
+
+        <mat-form-field fxFlex="40%">
+          <input name="name" formControlName="name" placeholder="Name" matInput>
+          <mat-error *ngIf="websiteForm.get('name').hasError('required')">
+            Name is required!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="40%">
+          <input name="domainKey" formControlName="domainKey" placeholder="Domain" matInput>
+        </mat-form-field>
+
+        <div fxFlex="10%" class="text-center">
+          <button mat-button color="accent" matTooltip="Copy secret key" (click)="copySecetKey(website.secretKey)"
+            [disabled]="!website.secretKey">
+            <mat-icon aria-label="Add Website Url">file_copy</mat-icon>
+          </button>
+        </div>
+
+      </div>
+
+      <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="10px">
+
+        <mat-form-field fxFlex>
+          <input matInput name="publishDate" formControlName="publishDate" [matDatepicker]="publishDate" placeholder="Publish Date">
+          <mat-datepicker-toggle matSuffix [for]="publishDate"></mat-datepicker-toggle>
+          <mat-datepicker #publishDate></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput name="expiryDate" formControlName="expiryDate" [matDatepicker]="expiryDate" placeholder="Expiry Date">
+          <mat-datepicker-toggle matSuffix [for]="expiryDate"></mat-datepicker-toggle>
+          <mat-datepicker #expiryDate></mat-datepicker>
+        </mat-form-field>
+
+      </div>
+
+      <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+        <mat-tab label=" Website Urls">
+
+          <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="10px">
+
+            <table class="simple clickable">
+              <tbody formArrayName="websiteUrls" *ngFor="let websiteUrl of websiteUrls.controls;let i=index">
+                <tr [formGroupName]="i">
+                  <td>
+                    <mat-form-field class="w-100p">
+                      <input name="websiteUrl" formControlName="url" placeholder="Website Url" matInput>
+                    </mat-form-field>
+                    <mat-error *ngIf="websiteUrl.hasError('required') && ( websiteUrl.touched || websiteUrl.dirty ) ">
+                      Name is required!
+                    </mat-error>
+                  </td>
+                  <td class="text-center">
+                    <button mat-icon-button color="warn" class="pr-8 pl-8" matTooltip="Delete Record " (click)="removeWebsiteUrl(i)">
+                      <mat-icon aria-label="Delete notify item">delete</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="2" class="text-right p-8">
+                    <button mat-stroked-button color="accent" class="pr-8 pl-8 " matTooltip="Add Website Url" (click)="addWebsiteUrl()">
+                      <mat-icon aria-label="Add Website Url">add</mat-icon> Website Url
+                    </button>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+
+          </div>
+        </mat-tab>
+        <mat-tab label="Notifications">
+
+          <table class="simple clickable">
+            <tbody formArrayName="notifications" *ngFor="let notify of notifications.controls;let i=index">
+              <tr [formGroupName]="i">
+                <td>
+                  <mat-form-field class="w-100p">
+                    <input name="email" formControlName="email" placeholder="Email Address" matInput>
+                  </mat-form-field>
+                  <mat-error *ngIf="notify.hasError('email')">
+                    Please , enter a valid email
+                  </mat-error>
+                </td>
+                <td>
+                  <mat-form-field class="w-100p">
+                    <input name="displayName" formControlName="displayName" placeholder="Display Name" matInput>
+                  </mat-form-field>
+                </td>
+                <td class="text-center">
+                  <button mat-icon-button color="warn" class="pr-8 pl-8" matTooltip="Delete Record" (click)="removeNotification(i)">
+                    <mat-icon aria-label="Delete notify item">delete</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" class="text-right p-8">
+                  <button mat-stroked-button color="accent" class="pr-8 pl-8" matTooltip="Add Notification" (click)="addNotification()">
+                    <mat-icon aria-label="Add Notification">add</mat-icon>  Notification
+                  </button>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+
+        </mat-tab>
+      </mat-tab-group>
+
+
+    </form>
+
+  </div>
+
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+    <button *ngIf="action ==='edit'" mat-button class="mat-stroked-button" (click)="dialogRef.close(['delete',websiteForm])"
+      aria-label="Delete" matTooltip="Delete">
+      <mat-icon>delete</mat-icon>
+    </button>
+
+
+    <button mat-raised-button (click)="dialogRef.close(websiteForm)" class="save-button mat-accent" [disabled]="websiteForm.invalid"
+      aria-label="SAVE">
+      SAVE
+    </button>
+
+  </div>
+</div>

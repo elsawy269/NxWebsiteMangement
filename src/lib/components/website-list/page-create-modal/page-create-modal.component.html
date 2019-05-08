@@ -1,0 +1,52 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class=" m-0 accent">
+      <mat-toolbar-row fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <span class="title dialog-title">{{dialogTitle}}</span>
+        <button mat-button class="mat-icon-button" (click)="dialogRef.close()" aria-label="Close dialog">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+      <form [formGroup]="pageForm">
+        <input formControlName="id" hidden>
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-between start" fxLayoutWrap fxLayoutGap="10px">
+
+          <mat-form-field fxFlex>
+            <input name="name" formControlName="name" placeholder="System Name" matInput required>
+          </mat-form-field>
+
+          <mat-form-field fxFlex>
+            <input name="title" formControlName="title" placeholder="Title" matInput required>
+          </mat-form-field>
+
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between start" fxLayoutWrap fxLayoutGap="10px">
+
+          <mat-form-field fxFlex>
+            <textarea matInput name="meta" formControlName="meta" placeholder="Meta" rows= "20" ></textarea>
+          </mat-form-field>
+
+        </div>
+
+      </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+      <!-- <button *ngIf="action ==='edit'" mat-button class="mat-icon-button" (click)="dialogRef.close(['delete',pageForm])" aria-label="Delete"
+        matTooltip="Delete">
+        <mat-icon>delete</mat-icon>
+      </button> -->
+
+      <button mat-raised-button (click)="dialogRef.close(pageForm)" class="save-button mat-accent" [disabled]="pageForm.invalid"
+        aria-label="SAVE">
+        SAVE
+      </button>
+
+    </div>
+  </div>

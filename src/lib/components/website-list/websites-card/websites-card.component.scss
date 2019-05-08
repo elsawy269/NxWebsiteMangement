@@ -1,0 +1,131 @@
+@import "../../../../../../../shared/fuse/src/lib/scss/fuse.scss";
+
+:host {
+  .websites {
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+
+    .no-websites {
+      font-size: 24px;
+      margin: 24px 0;
+      text-align: center;
+    }
+
+    .website {
+      padding: 16px;
+
+      &:hover {
+
+        .website-content {
+          @include mat-elevation(8);
+          cursor: pointer;
+          background-color: #c5c6cb;
+        }
+      }
+
+      .website-content {
+        min-height: 240px;
+        transition: box-shadow 150ms ease-in-out;
+
+
+        @include mat-elevation(3);
+
+        .header {
+          padding: 16px 24px;
+          height: 64px !important;
+          min-height: 64px !important;
+          max-height: 64px !important;
+
+          &.web-bg {
+            background: mat-color($mat-blue, 500);
+          }
+
+          &.android-bg {
+            background: mat-color($mat-green, 500);
+          }
+
+          &.firebase-bg {
+            background: mat-color($mat-amber, 800);
+          }
+
+          &.cloud-bg {
+            background: mat-color($mat-blue-grey, 500);
+          }
+
+          .category {
+            text-transform: capitalize;
+            text-align: left;
+            font-weight: 500;
+          }
+
+          .length {
+
+            .length-icon {
+              margin-right: 8px;
+            }
+
+            .min {
+              font-size: 16px;
+            }
+          }
+        }
+
+        .content {
+          padding: 24px;
+          background: url('../../../../../../../../apps/admin-portal/src/assets/images/img-icons/globe-grid.svg');
+          background-size: 50px;
+          background-position: left top;
+          background-repeat: no-repeat;
+
+          .h1 {
+            font-size: 16px;
+            text-align: center;
+          }
+
+          .updated {
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 4px;
+          }
+        }
+
+        .footer {
+          padding: 16px;
+          height: 48px !important;
+          min-height: 48px !important;
+          max-height: 48px !important;
+          box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.12);
+        }
+      }
+    }
+
+    .load-more {
+      min-width: 110px;
+      width: 110px;
+      padding: 24px 0;
+      position: relative;
+      margin: 16px;
+      // border-radius: 2px;
+      // background: rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+
+      // &:hover {
+      //   // @include mat-elevation(2);
+      // }
+
+      .board-name {
+        padding-top: 16px;
+        font-weight: 500;
+      }
+
+      ngx-spinner {
+        text-align: center;
+        padding: 40px;
+        display: block;
+      }
+    }
+
+
+  }
+}

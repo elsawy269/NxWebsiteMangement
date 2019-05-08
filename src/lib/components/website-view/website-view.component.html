@@ -1,0 +1,141 @@
+<div id="academy-course" class="page-layout simple left-sidebar inner-scroll">
+
+  <!-- SIDEBAR -->
+  <fuse-sidebar class="sidebar" name="academy-course-left-sidebar-1" position="left" lockedOpen="gt-md">
+
+    <!-- SIDEBAR CONTENT -->
+    <div class="content" fusePerfectScrollbar>
+      <div class="page-header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="mr-12">web</mat-icon>
+        <h2> Pages</h2>
+      </div>
+      <div class="steps">
+        <div class="step" *ngFor="let page of website.pages; let i = index; let last = last; let first = first" (click)="gotoStep(i)"
+          [ngClass]="{'current': currentStep === i, 'completed': currentStep > i, 'last': last, 'first': first}">
+          <div fxLayout="row" fxLayoutAlign="start center" >
+            <div class="index">
+              <span>{{i + 1}}</span>
+            </div>
+            <div class="title">{{page.name}}</div>
+          </div>
+
+          <button mat-icon-button class="ml-16" (click)="editPage(page,website.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- / SIDEBAR CONTENT -->
+
+
+    <div fxLayout="row" fxLayoutAlign="space-around center" class="p-24">
+
+      <button mat-fab class="done green-600" matTooltip="New Page" (click)="addPage(website)">
+        <mat-icon aria-label="New page">add</mat-icon>
+      </button>
+
+
+    </div>
+
+  </fuse-sidebar>
+  <!-- / SIDEBAR -->
+
+  <!-- CENTER -->
+  <div class="center">
+
+    <!-- HEADER -->
+    <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+
+      <button mat-icon-button class="sidebar-toggle mr-16" fxHide.gt-md (click)="toggleSidebar('academy-course-left-sidebar-1')">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <button mat-icon-button class="mr-16" [routerLink]="['/cms/website-list']">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <div>
+        <h2> {{ website.name}}</h2>
+      </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div id="course-content" class="content">
+
+      <ng-container *ngFor="let page of website.pages; let i = index;">
+
+        <div class="course-step" fusePerfectScrollbar *ngIf="currentStep === i" [@slideIn]="animationDirection">
+
+          <div id="course-step-content" class="course-step-content" *ngIf="page.contentCount > 0">
+            <table class="simple clickable bordered">
+              <thead>
+                <tr>
+                  <th color="accent" colspan="">Content Name</th>
+                  <th class="text-center">
+                    <button mat-stroked-button color="accent"  matTooltip="New Content" (click)="addContent(page.id)">
+                      <mat-icon aria-label="New Content">add</mat-icon> Content
+                    </button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let content of page.contents">
+                  <td>
+                    {{content.name}}
+                  </td>
+                  <td class="text-center">
+                    <button mat-icon-button matTooltip="Edit Content" (click)="editContent(content,page.id)">
+                      <mat-icon color="accent" aria-label="Edit Content">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Delete Content" (click)="deleteContent(content)">
+                      <mat-icon class="red-500-fg" aria-label="Delete Content">delete</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div id="course-step-content" class="course-step-content" fxLayout="row" fxLayoutAlign="space-around center"
+            fxLayoutGap="10px" *ngIf="page.contentCount == 0">
+            <div class="no-content">
+               No Content Found!
+            </div>
+            <button mat-stroked-button color="accent" matTooltip="New Content" (click)="addContent(page.id)">
+              <mat-icon aria-label="New Content">add</mat-icon> Content
+            </button>
+          </div>
+
+        </div>
+
+      </ng-container>
+
+    </div>
+    <!-- / CONTENT -->
+
+    <div class="step-navigation">
+
+      <button mat-fab class="previous mat-accent white-fg" (click)="gotoPreviousStep()" [disabled]="currentStep === 0"
+        [fxHide]="currentStep === 0">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+
+
+
+      <button mat-fab class="next mat-accent white-fg" (click)="gotoNextStep()" [disabled]="currentStep === website.pageCount -1"
+        [fxHide]="currentStep === website.pageCount -1">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+
+
+
+    </div>
+
+  </div>
+  <!-- / CENTER -->
+
+</div>

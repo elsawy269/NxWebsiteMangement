@@ -1,0 +1,79 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class=" m-0 accent">
+    <mat-toolbar-row fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">{{dialogTitle}}</span>
+      <button mat-button class="mat-icon-button" (click)="dialogRef.close()" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+    <form [formGroup]="contentForm">
+      <input formControlName="id" hidden>
+
+      <div fxLayout="row wrap" fxLayoutAlign="space-between start" fxLayoutWrap fxLayoutGap="10px">
+
+
+        <mat-form-field fxFlex>
+          <input name="title" formControlName="title" placeholder="Title" matInput (change)="onNameChange($event)">
+          <mat-error *ngIf="contentForm.get('title').hasError('required')">
+            Title is required!
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+
+      <div fxLayout="row wrap" fxLayoutAlign="start start"  fxLayoutGap="10px">
+
+        <mat-form-field fxFlex>
+          <input matInput name="datePublished" formControlName="datePublished" [matDatepicker]="datePublished" (dateChange)="dateChange('change', $event)" placeholder="Publish Date">
+          <mat-datepicker-toggle matSuffix [for]="datePublished"></mat-datepicker-toggle>
+          <mat-datepicker #datePublished></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput name="publishExpireDate" formControlName="publishExpireDate" [matDatepicker]="publishExpireDate" placeholder="Expiry Date">
+          <mat-datepicker-toggle matSuffix [for]="publishExpireDate"></mat-datepicker-toggle>
+          <mat-datepicker #publishExpireDate></mat-datepicker>
+        </mat-form-field>
+
+      </div>
+
+
+      <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="10px">
+
+        <mat-form-field fxFlex>
+          <input name="author" formControlName="author" placeholder="Author" matInput  (change)="onAuthorChange($event)">
+          <mat-error *ngIf="contentForm.get('author').hasError('required')" >
+            Author is required!
+          </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field fxFlex>
+          <input name="slug" formControlName="slug" placeholder="Slug" matInput>
+        </mat-form-field>
+
+      </div>
+
+    </form>
+
+  </div>
+
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+    <button mat-raised-button (click)="dialogRef.close(contentForm)" class="save-button mat-accent" [disabled]="contentForm.invalid"
+      aria-label="SAVE">
+      SAVE
+    </button>
+
+    <div>
+      <mat-card>
+        <img [src]="imgUrl" width="120" />
+      </mat-card>
+    </div>
+
+  </div>
+</div>
